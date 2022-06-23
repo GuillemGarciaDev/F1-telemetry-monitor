@@ -1,18 +1,27 @@
 const express = require('express')
 const F1TelemetryClient = require('f1-2021-udp')
 const { Server } = require('socket.io')
+const cors = require('cors')
+const http = require('http')
 
 /* Init server configuration */
 const app = express()
+app.use(cors())
 const PORT = 5050
 const DEBUG = true
-const io = new Server()
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: 'http://localhost:3000',
+        methods: ['GET', 'POST']
+    }
+})
 
 io.on('connection', (socket) => {
     console.log('[ ✅ ] Client connected')
-    io.on('disconnect', () => {
-        console.log('[ ❌ ] Client disconnected');
-    })
+})
+io.on('disconnect', () => {
+    console.log('[ ❌ ] Client disconnected');
 })
 
 /* Init F1 Connection configuration */
@@ -45,7 +54,7 @@ app.get('/', (req, res) => {
 
 /* Server Start */ 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`F1 Telemetry Client started listening on port ${PORT}`)
 })
 
