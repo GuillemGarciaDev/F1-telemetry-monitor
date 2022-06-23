@@ -12,7 +12,7 @@ const ClassificationTable = (props) => {
                 Classification
             </p>
             <div class="flex flex-col bg-[#252525] w-fit border-solid border-4 border-white rounded-md">
-                {classification.map(el => <ClassificationRow bestTime={bestTime} position={el.position} teamId={el.teamId} driverId={el.driverId} lapTime={el.lapTime} tyreCompound={el.tyreCompound} />)}
+                {classification.map(el => <ClassificationRow key={el.position} bestTime={bestTime} position={el.position} teamId={el.teamId} driverId={el.driverId} lapTime={el.lapTime} tyreCompound={el.tyreCompound} />)}
             </div>
         </div>
         
