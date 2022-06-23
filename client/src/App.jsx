@@ -21,14 +21,11 @@ function App() {
   
 
   return (
-    <div class='w-screen h-screen bg-[#252525] p-2 border-solid border-white border-2 rounded-xl' >
+    <div class='w-screen h-screen flex flex-col bg-[#252525] p-2 border-solid border-white border-2 rounded-xl' >
+        <div class='flex flex-row'>
+          
+        </div>
         <ClassificationTable />
-        {/* <p>
-          Car status: {carStatus}
-        </p>
-        <p>
-          Lap Status: {lapStatus}
-        </p> */}
     </div>
   )
 }
