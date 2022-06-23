@@ -20,10 +20,10 @@ const io = new Server(server, {
 })
 
 io.on('connection', (socket) => {
-    console.log('[ ✅ ] Client connected')
+    console.log(`[ ${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()} : ${ new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()} ] ✅ Client connected!`)
 })
 io.on('disconnect', () => {
-    console.log('[ ❌ ] Client disconnected');
+    console.log(`[ ${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()} : ${ new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()} ] ❌ Client disconnected!`);
 })
 
 /* Init F1 Connection configuration */

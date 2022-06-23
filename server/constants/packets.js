@@ -1,4 +1,4 @@
-export const PACKETS = {
+exports.PACKETS = {
     "carStatus": "carStatus",
     "lapData": "lapData"
 }
