@@ -3,6 +3,8 @@ const F1TelemetryClient = require('f1-2021-udp')
 const { Server } = require('socket.io')
 const cors = require('cors')
 const http = require('http')
+const { PACKETS } = require('./constants/packets')
+const { parseCarStatusPacket, parseLapStatusPacket } = require('./parsers/packets')
 
 /* Init server configuration */
 const app = express()
@@ -29,19 +31,23 @@ const client = new F1TelemetryClient.F1TelemetryClient();
 
 
 /* Client info send functions */
-function sendPacket(type ,packet) {
+function sendPacket(type, packet) {
     io.emit(type, packet)
 }
 
 /* F1 Websocket connections */
-client.on('lapData', (data) => {
+client.on(PACKETS.lapData, (data) => {
     if (DEBUG) console.log(data)
-    sendPacket('lapData', data)
+    let packet = parseLapStatusPacket(data)
+    console.log(packet);
+    sendPacket(PACKETS.lapData, packet)
 })
 
-client.on('carStatus', (data) => {
+client.on(PACKETS.carStatus, (data) => {
     if (DEBUG) console.log(data)
-    sendPacket('carStatus', data)
+    let packet = parseCarStatusPacket(data)
+    console.log(packet);
+    sendPacket(PACKETS.carStatus, packet)
 })
 
 /* Start F1 Connection */
