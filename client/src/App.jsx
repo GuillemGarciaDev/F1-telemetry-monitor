@@ -1,42 +1,35 @@
-import { useState } from 'react'
-import logo from './logo.svg'
+import { useEffect, useState } from 'react'
+import io from 'socket.io-client'
 import './App.css'
+import ClassificationTable from './components/Classification'
+
+const socket = io.connect('http://localhost:5050')
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const [carStatus, setCarStatus] = useState('Nothing yet')
+  const [lapStatus, setLapStatus] = useState('Nothing yet')
+
+  useEffect(() => {
+    socket.on('carStatus', (data) => {
+      setCarStatus(data)
+    })
+    socket.on('lapStatus', (data) => {
+      setLapStatus(data)
+    })
+  }, [socket])
+  
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
+    <div >
+      <header>
+        <ClassificationTable />
+        {/* <p>
+          Car status: {carStatus}
         </p>
         <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
+          Lap Status: {lapStatus}
+        </p> */}
       </header>
     </div>
   )
