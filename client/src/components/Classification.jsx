@@ -8,7 +8,7 @@ const ClassificationTable = (props) => {
 
     return (
         <div class="flex flex-col py-2 px-2">
-            <p class='text-xl text-white font-bold my-2'>
+            <p class='text-lg text-white font-f1Bold my-2'>
                 Classification
             </p>
             <div class="flex flex-col bg-[#252525] w-fit border-solid border-4 border-white rounded-md">
