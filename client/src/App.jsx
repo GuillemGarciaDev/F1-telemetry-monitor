@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
+        <p class="">
           Car status: {carStatus}
         </p>
         <p>
