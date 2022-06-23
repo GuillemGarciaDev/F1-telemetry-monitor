@@ -19,7 +19,7 @@ export class TeamParser {
                 return '../../assets/teams/williams.jpg'
                 break;
             case 80:
-                return '../../assets/teams/astom-martin.jpg'
+                return '../../assets/teams/aston-martin.jpg'
                 break;
             case 85:
                 return '../../assets/teams/alpine.jpg'

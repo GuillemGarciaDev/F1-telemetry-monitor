@@ -21,8 +21,7 @@ function App() {
   
 
   return (
-    <div >
-      <header>
+    <div class='w-screen h-screen bg-[#252525] p-2 border-solid border-white border-2 rounded-xl' >
         <ClassificationTable />
         {/* <p>
           Car status: {carStatus}
@@ -30,7 +29,6 @@ function App() {
         <p>
           Lap Status: {lapStatus}
         </p> */}
-      </header>
     </div>
   )
 }
