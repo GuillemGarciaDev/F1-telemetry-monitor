@@ -1,4 +1,5 @@
 exports.PACKETS = {
     "carStatus": "carStatus",
-    "lapData": "lapData"
+    "lapData": "lapData",
+    "participants": "participants",
 }

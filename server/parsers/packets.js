@@ -10,5 +10,12 @@ function parseLapStatusPacket(packet) {
     }
 }
 
+function parseParticipantsDataPacket(packet) {
+    return {
+        "allParticipantsData": packet.m_participants
+    }
+}
+
 exports.parseCarStatusPacket = parseCarStatusPacket
 exports.parseLapStatusPacket = parseLapStatusPacket
+exports.parseParticipantsDataPacket = parseParticipantsDataPacket

@@ -4,14 +4,14 @@ const { Server } = require('socket.io')
 const cors = require('cors')
 const http = require('http')
 const { PACKETS } = require('./constants/packets')
-const { parseCarStatusPacket, parseLapStatusPacket } = require('./parsers/packets')
+const { parseCarStatusPacket, parseLapStatusPacket, parseParticipantsDataPacket } = require('./parsers/packets')
 const { getTime } = require('./utils/log')
 
 /* Init server configuration */
 const app = express()
 app.use(cors())
 const PORT = 5050
-const DEBUG = true
+const DEBUG = false
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
@@ -28,7 +28,7 @@ io.on('disconnect', () => {
 })
 
 /* Init F1 Connection configuration */
-const client = new F1TelemetryClient.F1TelemetryClient();
+const client = new F1TelemetryClient.F1TelemetryClient({address: '0.0.0.0'});
 
 
 /* Client info send functions */
@@ -36,11 +36,13 @@ function sendPacket(type, packet) {
     let data = []
     switch (type) {
         case PACKETS.carStatus:
-            packet.m_carStatusData.map((el) => data.push({"tyreCompound": el.m_visualTyreCompound}))
+            packet.allCarStatus.map((el) => data.push({"tyreCompound": el.m_visualTyreCompound}))
             break
         case PACKETS.lapData:
-            packet.m_lapData.map((el) => data.push({"position": el.m_carPosition, "lastLapTime": el.m_lastLapTimeInMS, "driverId": el.m_driverId, "teamId": el.m_teamId}))
+            packet.allDriversLapData.map((el, index) => data.push({"position": el.m_carPosition, "lapTime": el.m_currentLapTimeInMS, "arrayIndex": index}))
             break
+        case PACKETS.participants:
+            packet.allParticipantsData.map((el) => data.push({"driverId": el.m_driverId, "teamId": el.m_teamId}))
         default:
             break
     }
@@ -52,15 +54,22 @@ function sendPacket(type, packet) {
 client.on(PACKETS.lapData, (data) => {
     if (DEBUG) console.log(data)
     let packet = parseLapStatusPacket(data)
-    console.log(packet);
+    //console.log(packet);
     sendPacket(PACKETS.lapData, packet)
 })
 
 client.on(PACKETS.carStatus, (data) => {
     if (DEBUG) console.log(data)
     let packet = parseCarStatusPacket(data)
-    console.log(packet);
+    //console.log(packet);
     sendPacket(PACKETS.carStatus, packet)
+})
+
+client.on(PACKETS.participants, (data) => {
+    if (DEBUG) console.log(data)
+    let packet = parseParticipantsDataPacket(data)
+    //console.log(packet);
+    sendPacket(PACKETS.participants, packet)
 })
 
 /* Start F1 Connection */
