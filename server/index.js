@@ -5,6 +5,7 @@ const cors = require('cors')
 const http = require('http')
 const { PACKETS } = require('./constants/packets')
 const { parseCarStatusPacket, parseLapStatusPacket } = require('./parsers/packets')
+const { getTime } = require('./utils/log')
 
 /* Init server configuration */
 const app = express()
@@ -20,10 +21,10 @@ const io = new Server(server, {
 })
 
 io.on('connection', (socket) => {
-    console.log(`[ ${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()} : ${ new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()} ] ✅ Client connected!`)
+    console.log(`[ ${getTime} ] ✅ Client connected!`)
 })
 io.on('disconnect', () => {
-    console.log(`[ ${new Date().getDate()}-${new Date().getMonth()}-${new Date().getFullYear()} : ${ new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()} ] ❌ Client disconnected!`);
+    console.log(`[ ${getTime} ] ❌ Client disconnected!`);
 })
 
 /* Init F1 Connection configuration */
@@ -32,7 +33,19 @@ const client = new F1TelemetryClient.F1TelemetryClient();
 
 /* Client info send functions */
 function sendPacket(type, packet) {
-    io.emit(type, packet)
+    let data = []
+    switch (type) {
+        case PACKETS.carStatus:
+            packet.m_carStatusData.map((el) => data.push({"tyreCompound": el.m_visualTyreCompound}))
+            break
+        case PACKETS.lapData:
+            packet.m_lapData.map((el) => data.push({"position": el.m_carPosition, "lastLapTime": el.m_lastLapTimeInMS, "driverId": el.m_driverId, "teamId": el.m_teamId}))
+            break
+        default:
+            break
+    }
+    io.emit(type, data)
+    console.log(`[ ${getTime} ] 💬 Sending ${type} packet`)
 }
 
 /* F1 Websocket connections */

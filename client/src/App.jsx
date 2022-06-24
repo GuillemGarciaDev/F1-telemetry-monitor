@@ -4,9 +4,10 @@ import './App.css'
 import ClassificationTable from './components/Classification'
 import Logo from './components/Logo'
 
- const socket = io.connect('http://localhost:5050')
+const socket = io.connect('http://localhost:5050')
 
 function App() {
+  
   
   const [carStatus, setCarStatus] = useState('Nothing yet')
   const [lapStatus, setLapStatus] = useState('Nothing yet')
@@ -26,7 +27,9 @@ function App() {
         <div class='flex flex-row'>
           <Logo/>
         </div>
-        <ClassificationTable />
+        <div class='flex flex-row'>
+          <ClassificationTable />
+        </div>
     </div>
   )
 }
