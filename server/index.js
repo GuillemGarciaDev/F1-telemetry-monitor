@@ -21,10 +21,10 @@ const io = new Server(server, {
 })
 
 io.on('connection', (socket) => {
-    console.log(`[ ${getTime} ] ✅ Client connected!`)
+    console.log(`[ ${getTime()} ] ✅ Client connected!`)
 })
 io.on('disconnect', () => {
-    console.log(`[ ${getTime} ] ❌ Client disconnected!`);
+    console.log(`[ ${getTime()} ] ❌ Client disconnected!`);
 })
 
 /* Init F1 Connection configuration */
@@ -45,7 +45,7 @@ function sendPacket(type, packet) {
             break
     }
     io.emit(type, data)
-    console.log(`[ ${getTime} ] 💬 Sending ${type} packet`)
+    console.log(`[ ${getTime()} ] 💬 Sending ${type} packet`)
 }
 
 /* F1 Websocket connections */
