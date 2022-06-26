@@ -1,5 +1,6 @@
 
 import './App.css'
+import CarTelemetryStatus from './components/CarTelemetryStatus'
 import ClassificationTable from './components/Classification'
 import LapTimeStatus from './components/LapTimeStatus'
 import Logo from './components/Logo'
@@ -15,9 +16,12 @@ function App() {
           <Logo/>
         </div>
         <div class='flex flex-row'>
-          <div class='flex flex-col w-fit'>
+          <div class='flex flex-col '>
             <ClassificationTable />
             <LapTimeStatus />
+          </div>
+          <div class='flex flex-row w-3/5'>
+            <CarTelemetryStatus/>
           </div>
           <div class='flex flex-col w-1/5'>
             <SessionStatus/>
