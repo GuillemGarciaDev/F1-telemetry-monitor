@@ -47,7 +47,8 @@ function sendPacket(type, packet) {
         case PACKETS.session:
             data = {
                 "totalLaps": packet.sessionData.m_totalLaps,
-                "sessionTimeLeft": packet.sessionData.m_sessionTimeLeft
+                "sessionTimeLeft": packet.sessionData.m_sessionTimeLeft,
+                "sessionType": packet.sessionData.m_sessionType
             }
         default:
             break
