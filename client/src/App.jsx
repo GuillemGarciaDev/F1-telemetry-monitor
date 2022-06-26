@@ -11,7 +11,7 @@ import SessionStatus from './components/SessionStatus'
 function App() {
   
   return (
-    <div class='w-screen h-screen flex flex-col bg-[#252525] border-solid border-white border-2 rounded-xl' >
+    <div class='w-screen h-screen flex flex-col  bg-[#252525] border-solid border-white border-2 rounded-xl' >
         <div class='flex flex-row'>
           <Logo/>
         </div>
@@ -20,10 +20,10 @@ function App() {
             <ClassificationTable />
             <LapTimeStatus />
           </div>
-          <div class='flex flex-row w-3/5'>
+          <div class='flex flex-row w-9/12'>
             <CarTelemetryStatus/>
           </div>
-          <div class='flex flex-col w-1/5'>
+          <div class='flex flex-col w-3/12'>
             <SessionStatus/>
           </div>
         </div>
