@@ -5,6 +5,7 @@ import ClassificationTable from './components/Classification'
 import LapTimeStatus from './components/LapTimeStatus'
 import Logo from './components/Logo'
 import SessionStatus from './components/SessionStatus'
+import SessionWeatherStatus from './components/SessionWeatherStatus'
 
 
 
@@ -25,6 +26,7 @@ function App() {
           </div>
           <div class='flex flex-col w-3/12'>
             <SessionStatus/>
+            <SessionWeatherStatus/>
           </div>
         </div>
 
