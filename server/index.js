@@ -48,7 +48,11 @@ function sendPacket(type, packet) {
             data = {
                 "totalLaps": packet.sessionData.m_totalLaps,
                 "sessionTimeLeft": packet.sessionData.m_sessionTimeLeft,
-                "sessionType": packet.sessionData.m_sessionType
+                "sessionType": packet.sessionData.m_sessionType,
+                "trackTemperature": packet.sessionData.m_trackTemperature,
+                "trackId": packet.sessionData.m_trackId,
+                "safetyCarStatus": packet.sessionData.m_safetyCarStatus,
+                "sessionDuration": packet.sessionData.m_sessionDuration
             }
         default:
             break
