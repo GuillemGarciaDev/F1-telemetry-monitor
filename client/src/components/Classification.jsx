@@ -6,7 +6,7 @@ import io from 'socket.io-client'
 
 const socket = io.connect('http://localhost:5050')
 
-const ClassificationTable = () => {
+const ClassificationTable = ({}) => {
 
     const bestTime = classification[0].lapTime
 
@@ -16,7 +16,6 @@ const ClassificationTable = () => {
 
     useEffect(() => {
         socket.on('carStatus', (data) => {
-            console.log(data)
             setCarStatus(data)
         })
         socket.on('lapData', (data) => {

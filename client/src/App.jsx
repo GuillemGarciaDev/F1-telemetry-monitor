@@ -6,8 +6,9 @@ import LapTimeStatus from './components/LapTimeStatus'
 import Logo from './components/Logo'
 import SessionStatus from './components/SessionStatus'
 import SessionWeatherStatus from './components/SessionWeatherStatus'
+import io from 'socket.io-client'
 
-
+const socket = io.connect('http://localhost:5050')
 
 function App() {
   
@@ -18,8 +19,8 @@ function App() {
         </div>
         <div class='flex flex-row'>
           <div class='flex flex-col '>
-            <ClassificationTable />
-            <LapTimeStatus />
+            <ClassificationTable socket={socket} />
+            <LapTimeStatus socket={socket} />
           </div>
           <div class='flex flex-row w-9/12'>
             <CarTelemetryStatus/>
