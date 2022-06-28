@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import io from 'socket.io-client'
+import { SAFETY_CAR_STATUSES } from '../parsers/safetyCarStatuses'
+import { SESSION_TYPES } from '../parsers/sessionType'
 import {TRACKS} from '../parsers/track'
 const socket = io.connect('http://localhost:5050')
 
@@ -28,14 +30,21 @@ const SessionStatus = () => {
                 Session
             </p>
             <div class='flex flex-col items-center justify-center border-solid border-4 border-white rounded-md w-full p-2'>
-                <div class='flex flex-row w-full my-2'>
+                {trackId == null && sessionType == null && safetyCarStatus == null && sessionDuration == null && trackTemperature == null ? 
+                <div class='flex flex-col items-center justify-center h-60 '>
+                    <p>
+                        No available data to display
+                    </p> 
+                </div>
+                :
+                <><div class='flex flex-row w-full my-2'>
                     <div class='flex flex-col w-1/2'>
                         <p>
                             TRACK<span class='font-f1Regular'>:</span>
                         </p>
                     </div>
                     <div class='flex flex-row w-1/2 h-6'>
-                        <img src='/assets/flags/monaco.png' alt='flag' />
+                        <img src={TRACKS[trackId]?.flag} alt='flag' />
                         <p class='ml-2'>
                             {TRACKS[trackId]?.name}
                         </p>
@@ -49,7 +58,7 @@ const SessionStatus = () => {
                     </div>
                     <div class='flex flex-row w-1/2'>
                         <p>
-                            Race
+                            {SESSION_TYPES[sessionType]}
                         </p>
                     </div>
                 </div>
@@ -61,7 +70,7 @@ const SessionStatus = () => {
                     </div>
                     <div class='flex flex-row w-1/2'>
                         <p>
-                            ---
+                        {Math.trunc(sessionDuration/60)}<span class='font-f1Regular'>:</span>{String(sessionDuration%60).padStart(2, '0')}
                         </p>
                     </div>
                 </div>
@@ -73,7 +82,7 @@ const SessionStatus = () => {
                     </div>
                     <div class='flex flex-row w-1/2'>
                         <p>
-                            Green Flag
+                            {SAFETY_CAR_STATUSES[safetyCarStatus]}
                         </p>
                     </div>
                 </div>
@@ -88,7 +97,7 @@ const SessionStatus = () => {
                             {trackTemperature}ºC
                         </p>
                     </div>
-                </div>
+                </div></>}
             </div>
         </div>
     )

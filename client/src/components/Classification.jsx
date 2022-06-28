@@ -39,7 +39,7 @@ const ClassificationTable = ({}) => {
                 {lapStatus.length > 0 ? lapStatus.map((el, index) => el.position != 0 ? <ClassificationRow key={index} bestTime={bestTime} position={el.position} teamId={participantsStatus[el.arrayIndex].teamId} driverId={participantsStatus[el.arrayIndex].driverId} lapTime={el.lapTime} tyreCompound={carStatus[el.arrayIndex]?.tyreCompound} /> : 
                 null) : 
                 <p class='text-lg text-white font-f1Bold text-center px-4 py-80'>
-                    No current data to display
+                    No available data to display
                 </p>}
             </div>
         </div>
