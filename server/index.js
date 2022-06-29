@@ -36,13 +36,33 @@ function sendPacket(type, packet) {
     let data = []
     switch (type) {
         case PACKETS.carStatus:
-            packet.allCarStatus.map((el) => data.push({"tyreCompound": el.m_visualTyreCompound}))
+            packet.allCarStatus.map((el) => data.push({
+                "tyreCompound": el.m_visualTyreCompound,
+                "tyresAgeLaps": el.m_tyresAgeLaps,
+                "fuelRemainingLaps": el.m_fuelRemainingLaps,
+                "ersDeployMode": el.m_ersDeployMode,
+                "ersDeployedThisLap": el.m_ersDeployedThisLap
+            }))
             break
         case PACKETS.lapData:
-            packet.allDriversLapData.map((el, index) => data.push({"position": el.m_carPosition, "lapTime": el.m_currentLapTimeInMS, "arrayIndex": index, "currentLapNum": el.m_currentLapNum}))
+            packet.allDriversLapData.map((el, index) => data.push({
+                "position": el.m_carPosition, 
+                "lapTime": el.m_currentLapTimeInMS, 
+                "arrayIndex": index, 
+                "currentLapNum": el.m_currentLapNum,
+                "sector1Time": el.m_sector1TimeInMS,
+                "sector2Time": el.m_sector2TimeInMS,
+                "penalties": el.m_penalties,
+                "warnings": el.m_warnings,
+                "sector": el.m_sector,
+                "numPitStops": el.m_numPitStops
+            }))
             break
         case PACKETS.participants:
-            packet.allParticipantsData.map((el) => data.push({"driverId": el.m_driverId, "teamId": el.m_teamId}))
+            packet.allParticipantsData.map((el) => data.push({
+                "driverId": el.m_driverId,
+                "teamId": el.m_teamId
+            }))
             break
         case PACKETS.session:
             data = {
@@ -54,6 +74,17 @@ function sendPacket(type, packet) {
                 "safetyCarStatus": packet.sessionData.m_safetyCarStatus,
                 "sessionDuration": packet.sessionData.m_sessionDuration
             }
+            break
+        case PACKETS.carTelemetry:
+            packet.allCarTelemetry.map((el) => data.push({
+                "speed": el.m_speed,
+                "throttle": el.m_throttle,
+                "steer": el.m_steer,
+                "brake": el.m_brake,
+                "gear": el.m_gear,
+                "engineRPM": el.m_engineRPM,
+                "drs": el.m_drs
+            }))
         default:
             break
     }
@@ -88,7 +119,15 @@ client.on(PACKETS.session, (data) => {
     let packet = parseSessionDataPacket(data)
     //console.log(packet)
     sendPacket(PACKETS.session, packet)
-}) 
+})
+
+client.on(PACKETS.carTelemetry, (data) => {
+    if (DEBUG) console.log(data)
+    let packet = null
+    //console.log(packet)
+    sendPacket(PACKETS.carTelemetry, packet)
+})
+
 
 /* Start F1 Connection */
 client.start()

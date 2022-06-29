@@ -2,5 +2,6 @@ exports.PACKETS = {
     "carStatus": "carStatus",
     "lapData": "lapData",
     "participants": "participants",
-    "session": "session"
+    "session": "session",
+    "carTelemetry": "carTelemetry"
 }
