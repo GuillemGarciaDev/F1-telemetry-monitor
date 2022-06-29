@@ -1,19 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import io from 'socket.io-client'
+import { TeamParser } from '../parsers/team'
+import { DRIVERS } from '../parsers/driver'
+import CarTelemetry from './CarTelemetry'
+
+const tp = new TeamParser()
+const socket = io.connect('http://localhost:5050')
 
 const CarTelemetryStatus = () => {
+    
+    const [participantsStatus, setParticipantsStatus] = useState([])
+    const [selectedCar, setSelectedCar] = useState(0)
+
+
+    useEffect(() => {
+        socket.on('participants', (data) => {
+            setParticipantsStatus(data)
+        })
+    }, [socket])
 
     return (
         <div class='flex flex-col p-2 w-full text-white font-f1Bold py-2 px-2'>
             <p class='my-2 text-lg'>
                 Car Telemetry
             </p>
-            <div class='w-full h-full border-solid border-4 border-white rounded-md'>
-                <div class='h-full flex flex-col items-center justify-center'>
-                    <p>
-                        Selected Car Telemetry
-                    </p>
-                </div>
-            </div>
+            <select value={selectedCar} onChange={e => setSelectedCar(parseInt(e.target.value))} class='w-2/5 my-2 h-8 border-solid border-4 border-white rounded-md color-#252525'>
+                {participantsStatus.map((participant, index) => 
+                    <option key={DRIVERS[participant.driverId]?.abbreviation} value={index} class='bg-#252525'>
+                        <div class='flex flex-row w-full'>
+                            <div class="w-7 h-7 mx-1">
+                                <img src={tp.parseTeamIdWithImage(participant?.teamId)}/>
+                            </div>
+                            <p>
+                                {DRIVERS[participant.driverId]?.abbreviation}
+                            </p>
+                        </div>
+                        
+                    </option>    
+                )}
+            </select>
+            <CarTelemetry selectedCar={selectedCar}/>
         </div>
     )
 }
