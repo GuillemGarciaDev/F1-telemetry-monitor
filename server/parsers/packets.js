@@ -22,6 +22,12 @@ function parseSessionDataPacket(packet) {
     }
 }
 
+function parseCarTelemetryPacket(packet) {
+    return {
+        "allCarTelemetry": packet.m_carTelemetryData
+    }
+}
+
 exports.parseCarStatusPacket = parseCarStatusPacket
 exports.parseLapStatusPacket = parseLapStatusPacket
 exports.parseParticipantsDataPacket = parseParticipantsDataPacket
