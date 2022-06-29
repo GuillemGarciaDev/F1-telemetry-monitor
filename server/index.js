@@ -4,7 +4,7 @@ const { Server } = require('socket.io')
 const cors = require('cors')
 const http = require('http')
 const { PACKETS } = require('./constants/packets')
-const { parseCarStatusPacket, parseLapStatusPacket, parseParticipantsDataPacket, parseSessionDataPacket } = require('./parsers/packets')
+const { parseCarStatusPacket, parseLapStatusPacket, parseParticipantsDataPacket, parseSessionDataPacket, parseCarTelemetryPacket } = require('./parsers/packets')
 const { getTime } = require('./utils/log')
 
 /* Init server configuration */
@@ -72,7 +72,9 @@ function sendPacket(type, packet) {
                 "trackTemperature": packet.sessionData.m_trackTemperature,
                 "trackId": packet.sessionData.m_trackId,
                 "safetyCarStatus": packet.sessionData.m_safetyCarStatus,
-                "sessionDuration": packet.sessionData.m_sessionDuration
+                "sessionDuration": packet.sessionData.m_sessionDuration,
+                "weather": packet.sessionData.m_weather,
+                "forecastAccuracy": packet.sessionData.m_forecastAccuracy,
             }
             break
         case PACKETS.carTelemetry:
@@ -123,7 +125,7 @@ client.on(PACKETS.session, (data) => {
 
 client.on(PACKETS.carTelemetry, (data) => {
     if (DEBUG) console.log(data)
-    let packet = null
+    let packet = parseCarTelemetryPacket(data)
     //console.log(packet)
     sendPacket(PACKETS.carTelemetry, packet)
 })

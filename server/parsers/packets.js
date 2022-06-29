@@ -32,3 +32,4 @@ exports.parseCarStatusPacket = parseCarStatusPacket
 exports.parseLapStatusPacket = parseLapStatusPacket
 exports.parseParticipantsDataPacket = parseParticipantsDataPacket
 exports.parseSessionDataPacket = parseSessionDataPacket
+exports.parseCarTelemetryPacket = parseCarTelemetryPacket

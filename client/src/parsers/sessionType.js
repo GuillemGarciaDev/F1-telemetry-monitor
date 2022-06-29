@@ -9,8 +9,8 @@ export const SESSION_TYPES = [
     'Q3',
     'Short Q',
     'OSQ',
-    'R',
-    'R2',
-    'R3',
+    'Race',
+    'Race 2',
+    'Race 3',
     'Time Trial',
   ];
