@@ -6,9 +6,9 @@ const socket = io.connect('http://localhost:5050')
 const CarTelemetry = ({selectedCar}) => {
 
     const [speed, setSpeed] = useState(null)
-    const [throttle, setThrottle] = useState(null)
+    const [throttle, setThrottle] = useState(0.5)
     const [steer, setSteer] = useState(null)
-    const [brake, setBrake] = useState(null)
+    const [brake, setBrake] = useState(0.2)
     const [gear, setGear] = useState(null)
     const [engineRPM, setEngineRPM] = useState(null)
     const [drs, setDrs] = useState(null)
@@ -47,7 +47,7 @@ const CarTelemetry = ({selectedCar}) => {
 
     return (
         <div class='w-full h-full border-solid border-4 border-white rounded-md'>
-                <div class='h-full flex flex-col'>
+                <div class='h-full flex flex-col w-1/3 p-2'>
                     <div class='flex flex-row'>
                         <div class='flex flex-row w-1/2'>
                             <p>
@@ -67,9 +67,9 @@ const CarTelemetry = ({selectedCar}) => {
                             </p>
                         </div>
                         <div class='flex flex-row w-1/2'>
-                            <p>
-                                {throttle}
-                            </p>
+                        <div class="w-full bg-[#4A4A53] rounded-full h-2.5">
+                            <div class="bg-[#55FF52] h-2.5 rounded-full" style={{width: throttle*100 + '%'}}></div>
+                        </div>
                         </div>
                     </div>
                     <div class='flex flex-row'>
@@ -91,9 +91,9 @@ const CarTelemetry = ({selectedCar}) => {
                             </p>
                         </div>
                         <div class='flex flex-row w-1/2'>
-                            <p>
-                                {brake}
-                            </p>
+                            <div class="w-full bg-[#4A4A53] rounded-full h-2.5">
+                                <div class="bg-[#E10600] h-2.5 rounded-full" style={{width: brake*100 + '%'}}></div>
+                            </div>
                         </div>
                     </div>
                     <div class='flex flex-row'>
@@ -116,7 +116,7 @@ const CarTelemetry = ({selectedCar}) => {
                         </div>
                         <div class='flex flex-row w-1/2'>
                             <p>
-                                {engineRPM}
+                                {engineRPM} rpm
                             </p>
                         </div>
                     </div>
@@ -127,8 +127,8 @@ const CarTelemetry = ({selectedCar}) => {
                             </p>
                         </div>
                         <div class='flex flex-row w-1/2'>
-                            <p>
-                                {drs}
+                            <p class={drs == 0 ? 'text-[#E10600]' : 'text-[#55FF52]'}>
+                                {drs == 0 ? 'Off' : 'Active'}
                             </p>
                         </div>
                     </div>
@@ -160,7 +160,19 @@ const CarTelemetry = ({selectedCar}) => {
                     <div class='flex flex-row'>
                         <div class='flex flex-row w-1/2'>
                             <p>
-                                Sector 1 Time
+                                Current Sector
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                {sector}
+                            </p>
+                        </div>
+                    </div>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                Sector 1
                             </p>
                         </div>
                         <div class='flex flex-row w-1/2'>
@@ -172,7 +184,7 @@ const CarTelemetry = ({selectedCar}) => {
                     <div class='flex flex-row'>
                         <div class='flex flex-row w-1/2'>
                             <p>
-                                Sector 2 Time
+                                Sector 2
                             </p>
                         </div>
                         <div class='flex flex-row w-1/2'>
@@ -208,19 +220,7 @@ const CarTelemetry = ({selectedCar}) => {
                     <div class='flex flex-row'>
                         <div class='flex flex-row w-1/2'>
                             <p>
-                                Current Sector
-                            </p>
-                        </div>
-                        <div class='flex flex-row w-1/2'>
-                            <p>
-                                {sector}
-                            </p>
-                        </div>
-                    </div>
-                    <div class='flex flex-row'>
-                        <div class='flex flex-row w-1/2'>
-                            <p>
-                                Number of Pit Stops
+                                Pit Stops
                             </p>
                         </div>
                         <div class='flex flex-row w-1/2'>
