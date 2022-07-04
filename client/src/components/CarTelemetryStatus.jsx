@@ -22,11 +22,6 @@ const CarTelemetryStatus = () => {
     return (
         <div class='flex flex-col p-2 w-full text-white font-f1Bold py-2 px-2'>
             <div class='flex flex-row w-full'>
-                <div class='w-1/2'>
-                    <p class='my-2 text-lg'>
-                        Car Telemetry
-                    </p>   
-                </div>
                 <div class='flex flex-row w-1/2 items-center'>
                     <p class='my-2 text-lg mr-2'>
                         Select Car
