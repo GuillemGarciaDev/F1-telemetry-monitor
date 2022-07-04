@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import io from 'socket.io-client'
-import { SAFETY_CAR_STATUSES } from '../parsers/safetyCarStatuses'
+import { SAFETY_CAR_STATUSES, SAFETY_CAR_STATUSES_COLORS } from '../parsers/safetyCarStatuses'
 import { SESSION_TYPES } from '../parsers/sessionType'
 import {TRACKS} from '../parsers/track'
 const socket = io.connect('http://localhost:5050')
@@ -81,7 +81,7 @@ const SessionStatus = () => {
                         </p>
                     </div>
                     <div class='flex flex-row w-1/2'>
-                        <p>
+                        <p class={'text-[' + SAFETY_CAR_STATUSES_COLORS[safetyCarStatus] + ']'}>
                             {SAFETY_CAR_STATUSES[safetyCarStatus]}
                         </p>
                     </div>
