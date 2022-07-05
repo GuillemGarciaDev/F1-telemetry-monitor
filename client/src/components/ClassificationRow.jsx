@@ -23,11 +23,25 @@ const ClassificationRow = (props) => {
                     {DRIVERS[props.driverId]?.abbreviation}
                 </p>
             </div>
-            <div class="w-20 mx-3">
-                <p class="text-white text-sm font-f1Regular text-start">
-                    {Math.floor(props.lapTime /60000)}.{((props.lapTime % 60000)/1000).toFixed(0)}.{props.lapTime%1000}
-                </p>
-            </div>
+            {
+                props.position != 1 ? props.lapTime != 0 ? 
+                <div class="w-20 mx-3">
+                    <p class="text-white text-sm font-f1Regular text-start">
+                        {Math.floor(props.lapTime /60000)}.{((props.lapTime % 60000)/1000).toFixed(0)}.{props.lapTime%1000}
+                    </p>
+                </div> : 
+                <div class="w-20 mx-3">
+                    <p class="text-white text-sm font-f1Regular text-start">
+                        No time
+                    </p>
+                </div>
+                : 
+                <div class="w-20 mx-3">
+                    <p class="text-white text-sm font-f1Regular text-start">
+                        Interval
+                    </p>
+                </div>
+            }
 
             <div class="w-5 h-5 mx-2">
                 <img class="w-full h-full" src={TYRES[props.tyreCompound]?.image} alt='tyre photo'/>

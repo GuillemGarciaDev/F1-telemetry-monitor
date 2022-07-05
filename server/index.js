@@ -49,13 +49,15 @@ function sendPacket(type, packet) {
                 "position": el.m_carPosition, 
                 "lapTime": el.m_currentLapTimeInMS, 
                 "arrayIndex": index, 
+                "lastLapTimeInMS": el.m_lastLapTimeInMS,
                 "currentLapNum": el.m_currentLapNum,
                 "sector1Time": el.m_sector1TimeInMS,
                 "sector2Time": el.m_sector2TimeInMS,
                 "penalties": el.m_penalties,
                 "warnings": el.m_warnings,
                 "sector": el.m_sector,
-                "numPitStops": el.m_numPitStops
+                "numPitStops": el.m_numPitStops,
+                "lapDistance": el.m_lapDistance
             }))
             break
         case PACKETS.participants:
