@@ -59,7 +59,7 @@ const CarTelemetry = ({selectedCar}) => {
     }, [socket, selectedCar])
 
     return (
-        <div class='w-full h-full border-solid border-4 border-white rounded-md'>
+        <div class='flex flex-row w-full h-full border-solid border-4 border-white rounded-md'>
             <div class='h-full flex flex-col w-1/3 p-2'>
                 <p class='text-lg my-2'>Driver status</p>
                 <div class='flex flex-row'>
@@ -159,7 +159,9 @@ const CarTelemetry = ({selectedCar}) => {
                     </div>
                 </div>
                 <br/>
-                <p class='my-2 text-lg'>Car status</p>
+                </div>
+            <div class='h-full flex flex-col w-1/3 p-2'>
+            <p class='my-2 text-lg'>Car status</p>
                 <div class='flex flex-row'>
                     <div class='flex flex-row w-1/2'>
                         <p>
@@ -278,7 +280,7 @@ const CarTelemetry = ({selectedCar}) => {
                         </p>
                     </div>
                 </div>
-                </div>
+            </div>
             </div>
     )
 }
