@@ -32,7 +32,6 @@ const CarTelemetry = ({selectedCar}) => {
     
     useEffect(() => {
         socket.on('carTelemetry', (data) => {
-            console.log(data[0])
             setSpeed(data[selectedCar].speed)
             setThrottle(data[selectedCar].throttle)
             setSteer(data[selectedCar].steer)
@@ -263,7 +262,7 @@ const CarTelemetry = ({selectedCar}) => {
                     </div>
                     <div class='flex flex-row w-1/2'>
                         <p>
-                            {fuelRemainingLaps.toFixed(2)}
+                            {fuelRemainingLaps?.toFixed(2)}
                         </p>
                     </div>
                 </div>
