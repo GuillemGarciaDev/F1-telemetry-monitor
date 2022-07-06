@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 import { ERS_DEPLOY_MODE, ERS_DEPLOY_MODE_COLOR } from '../parsers/ersDeployMode'
 import { TYRES } from '../parsers/tyres'
+import LapChart from './LapChart'
 
 const socket = io.connect('http://localhost:5050')
 
@@ -9,7 +10,6 @@ const CarTelemetry = ({selectedCar}) => {
 
     const [speed, setSpeed] = useState(null)
     const [throttle, setThrottle] = useState(0.5)
-    const [steer, setSteer] = useState(null)
     const [brake, setBrake] = useState(0.2)
     const [gear, setGear] = useState(null)
     const [engineRPM, setEngineRPM] = useState(null)
@@ -59,7 +59,7 @@ const CarTelemetry = ({selectedCar}) => {
     }, [socket, selectedCar])
 
     return (
-        <div class='w-full h-full border-solid border-4 border-white rounded-md'>
+        <div class='flex flex-row w-full h-full border-solid border-4 border-white rounded-md'>
             <div class='h-full flex flex-col w-1/3 p-2'>
                 <p class='text-lg my-2'>Driver status</p>
                 <div class='flex flex-row'>
@@ -159,6 +159,8 @@ const CarTelemetry = ({selectedCar}) => {
                     </div>
                 </div>
                 <br/>
+                </div>
+            <div class='h-full flex flex-col w-1/3 p-2'>
                 <p class='my-2 text-lg'>Car status</p>
                 <div class='flex flex-row'>
                     <div class='flex flex-row w-1/2'>
@@ -278,8 +280,12 @@ const CarTelemetry = ({selectedCar}) => {
                         </p>
                     </div>
                 </div>
-                </div>
             </div>
+            <div class='h-full flex flex-col w-1/3 p-2'>
+                <p class='my-2 text-lg'>Lap time</p>
+                <LapChart selectedCar={selectedCar}/>
+            </div>
+        </div>
     )
 }
 
