@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import { TeamParser } from '../parsers/team'
 import { DRIVERS } from '../parsers/driver'
 import CarTelemetry from './CarTelemetry'
-import LapChart from './LapChart'
+
 
 const tp = new TeamParser()
 const socket = io.connect('http://localhost:5050')
@@ -46,7 +46,6 @@ const CarTelemetryStatus = () => {
                 
             </div>
             <CarTelemetry selectedCar={selectedCar}/>
-            <LapChart selectedCar={selectedCar}/>
         </div>
     )
 }
