@@ -27,14 +27,11 @@ const CarTelemetry = ({selectedCar}) => {
     const [tyresAgeLaps, setTyresAgeLaps] = useState(null)
     const [fuelRemainingLaps, setFuelRemainingLaps] = useState(null)
     const [ersDeployMode, setErsDeployMode] = useState(null)
-    const [ersDeployedThisLap, setErsDeployedThisLap] = useState(null)
-    const [tyreCompound, setTyreCompound] = useState(null)
     
     useEffect(() => {
         socket.on('carTelemetry', (data) => {
             setSpeed(data[selectedCar].speed)
             setThrottle(data[selectedCar].throttle)
-            setSteer(data[selectedCar].steer)
             setBrake(data[selectedCar].brake)
             setGear(data[selectedCar].gear)
             setEngineRPM(data[selectedCar].engineRPM)
@@ -54,7 +51,6 @@ const CarTelemetry = ({selectedCar}) => {
             setTyresAgeLaps(data[selectedCar].tyresAgeLaps)
             setFuelRemainingLaps(data[selectedCar].fuelRemainingLaps)
             setErsDeployMode(data[selectedCar].ersDeployMode)
-            setErsDeployedThisLap(data[selectedCar].ersDeployedThisLap)
         })
     }, [socket, selectedCar])
 
@@ -237,16 +233,6 @@ const CarTelemetry = ({selectedCar}) => {
                 <div class='flex flex-row'>
                     <div class='flex flex-row w-1/2'>
                         <p>
-                            Tyre Compound
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2'>
-                        <img src={TYRES[tyreCompound]?.image}/>
-                    </div>
-                </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
                             Tyres Age Lap
                         </p>
                     </div>
@@ -283,7 +269,7 @@ const CarTelemetry = ({selectedCar}) => {
             </div>
             <div class='h-full flex flex-col w-1/3 p-2'>
                 <p class='my-2 text-lg'>Lap time</p>
-                <LapChart selectedCar={selectedCar}/>
+                {/* {<LapChart selectedCar={selectedCar}/>} */}
             </div>
         </div>
     )

@@ -55,33 +55,41 @@ export const data = {
 let counter = 0
 const LapChart = ({selectedCar}) => {
 
-    // const [laps, setLaps] = useState([])
-    // const [time, setTime] = useState([])
-    // const [lapCounter, setLapCounter] = useState(0)
-    // useEffect(() => {
-    //     socket.on('lapData', (data) => {
-    //         let lastLap = data[selectedCar].lastLapTimeInMS
-    //         console.log(time);
-    //         console.log(laps);
-    //         if (lastLap != 0) {
-    //             if ((time.length > 0 && time[time.length - 1] != lastLap) || time.length == 0) {
-    //                 let tmp_time = time
-    //                 tmp_time.push(lastLap)
-    //                 setTime(tmp_time)
-    //                 counter = counter + 1
-    //                 let tmp_laps = laps
-    //                 tmp_laps.push((counter).toString())
-    //                 setLaps(tmp_laps)
-    //             }
-    //         }
-    //     })
-    // }, [socket, selectedCar])
+    const [labels, setLabels] = useState([])
+    const [time, setTime] = useState([])
+    const [lapCounter, setLapCounter] = useState(0)
+    useEffect(() => {
+        socket.on('lapData', (data) => {
+            let lastLap = data[selectedCar].currentLapNum
+            
+            if (lastLap != 0) {
+                if ((labels.length > 0 && labels[labels.length - 1] != lastLap) || labels.length == 0) {
+                    let tmp_time = time
+                    tmp_time.push(data[selectedCar].lastLapTimeInMS)
+                    setTime(tmp_time)
+                    counter = counter + 1
+                    let tmp_laps = labels
+                    tmp_laps.push((counter).toString())
+                    setLabels(tmp_laps)
+                }
+            }
+        })
+    }, [socket, selectedCar])
 
     return (
         <div class='flex flex-row w-full'>
             <Line 
                 options={options}
-                data={data}
+                data={{
+                  labels,
+                  datasets: [{
+                    fill: true,
+                    label: 'Laps',
+                    data: labels.map((el, index) => time[index]),
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                  }]
+                }}
             />
         </div>
         

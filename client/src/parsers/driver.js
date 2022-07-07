@@ -78,7 +78,7 @@ export const DRIVERS = {
   78: {abbreviation: 'MAT', firstName: 'Nobuharu', lastName: 'Matsushita'},
   79: {abbreviation: 'MAZ', firstName: 'Nikita', lastName: 'Mazepin'},
   80: {abbreviation: 'ZHO', firstName: 'Guanya', lastName: 'Zhou'},
-  81: {abbreviation: 'SWH', firstName: 'Mick', lastName: 'Schumacher'},
+  81: {abbreviation: 'MSC', firstName: 'Mick', lastName: 'Schumacher'},
   82: {abbreviation: 'ILO', firstName: 'Callum', lastName: 'Ilott'},
   83: {abbreviation: 'COR', firstName: 'Juan', lastName: 'Manuel Correa'},
   84: {abbreviation: 'KIN', firstName: 'Jordan', lastName: 'King'},
