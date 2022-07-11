@@ -80,16 +80,7 @@ const LapChart = ({selectedCar}) => {
         <div class='flex flex-row w-full'>
             <Line 
                 options={options}
-                data={{
-                  labels,
-                  datasets: [{
-                    fill: true,
-                    label: 'Laps',
-                    data: labels.map((el, index) => time[index]),
-                    borderColor: 'rgb(255, 99, 132)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                  }]
-                }}
+                data={data}
             />
         </div>
         
