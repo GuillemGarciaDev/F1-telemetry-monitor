@@ -77,8 +77,16 @@ const LapChart = ({selectedCar}) => {
     }, [socket, selectedCar])
 
     return (
-        <div class='flex flex-row w-full'>
+        <div class='flex flex-col w-full'>
             <Line 
+                options={options}
+                data={data}
+            />
+            <Line 
+                options={options}
+                data={data}
+            />
+             <Line 
                 options={options}
                 data={data}
             />
