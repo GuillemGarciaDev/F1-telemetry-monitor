@@ -27,14 +27,11 @@ const CarTelemetry = ({selectedCar}) => {
     const [tyresAgeLaps, setTyresAgeLaps] = useState(null)
     const [fuelRemainingLaps, setFuelRemainingLaps] = useState(null)
     const [ersDeployMode, setErsDeployMode] = useState(null)
-    const [ersDeployedThisLap, setErsDeployedThisLap] = useState(null)
-    const [tyreCompound, setTyreCompound] = useState(null)
     
     useEffect(() => {
         socket.on('carTelemetry', (data) => {
             setSpeed(data[selectedCar].speed)
             setThrottle(data[selectedCar].throttle)
-            setSteer(data[selectedCar].steer)
             setBrake(data[selectedCar].brake)
             setGear(data[selectedCar].gear)
             setEngineRPM(data[selectedCar].engineRPM)
@@ -54,7 +51,6 @@ const CarTelemetry = ({selectedCar}) => {
             setTyresAgeLaps(data[selectedCar].tyresAgeLaps)
             setFuelRemainingLaps(data[selectedCar].fuelRemainingLaps)
             setErsDeployMode(data[selectedCar].ersDeployMode)
-            setErsDeployedThisLap(data[selectedCar].ersDeployedThisLap)
         })
     }, [socket, selectedCar])
 
@@ -232,16 +228,6 @@ const CarTelemetry = ({selectedCar}) => {
                         <p class={drs == 0 ? 'text-[#E10600]' : 'text-[#55FF52]'}>
                             {drs == 0 ? 'Off' : 'Active'}
                         </p>
-                    </div>
-                </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            Tyre Compound
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2'>
-                        <img src={TYRES[tyreCompound]?.image}/>
                     </div>
                 </div>
                 <div class='flex flex-row'>

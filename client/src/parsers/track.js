@@ -1,3 +1,4 @@
+
 export const TRACKS = [
     {name: 'Melbourne', flag: '/assets/flags/australia.png'},
     {name: 'Paul Ricard', flag: '/assets/flags/france.png'},
