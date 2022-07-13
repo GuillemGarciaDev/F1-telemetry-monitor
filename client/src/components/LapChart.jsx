@@ -60,18 +60,15 @@ const LapChart = ({selectedCar}) => {
     const [lapCounter, setLapCounter] = useState(0)
     useEffect(() => {
         socket.on('lapData', (data) => {
-            let lastLap = data[selectedCar].currentLapNum
-            
-            if (lastLap != 0) {
-                if ((labels.length > 0 && labels[labels.length - 1] != lastLap) || labels.length == 0) {
-                    let tmp_time = time
-                    tmp_time.push(data[selectedCar].lastLapTimeInMS)
-                    setTime(tmp_time)
-                    counter = counter + 1
-                    let tmp_laps = labels
-                    tmp_laps.push((counter).toString())
-                    setLabels(tmp_laps)
-                }
+            let currentLap = data[selectedCar].currentLapNum
+            let found = labels.find((el) => el == currentLap)
+            if (currentLap > 1 && found.length == 0) {
+                let tmp_labels = labels
+                tmp_labels.push(currentLap - 1)
+                setLabels(tmp_labels)
+                let tmp_time = time
+                tmp_time.push(data[selectedCar].lastLapTimeInMS)
+                setTime(tmp_time)
             }
         })
     }, [socket, selectedCar])
