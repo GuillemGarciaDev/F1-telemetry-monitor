@@ -270,10 +270,10 @@ const CarTelemetry = ({selectedCar}) => {
             <div class='h-full flex flex-col w-1/3 p-2'>
                 <p class='my-2 text-lg'>Lap time</p>
                 <LapChart selectedCar={selectedCar}/>
-                <p class='my-2 text-lg'>Tyre damage</p>
+                {/* <p class='my-2 text-lg'>Tyre damage</p>
                 <LapChart selectedCar={selectedCar}/>
                 <p class='my-2 text-lg'>Position per lap</p>
-                <LapChart selectedCar={selectedCar}/>
+                <LapChart selectedCar={selectedCar}/> */}
             </div>
         </div>
     )

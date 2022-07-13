@@ -61,8 +61,10 @@ const LapChart = ({selectedCar}) => {
     useEffect(() => {
         socket.on('lapData', (data) => {
             let currentLap = data[selectedCar].currentLapNum
-            let found = labels.find((el) => el == currentLap)
-            if (currentLap > 1 && found.length == 0) {
+            console.log(currentLap);
+            let found = labels.find((el) => el == currentLap - 1)
+            console.log(labels);
+            if (currentLap - 1 > 0 && found == undefined) {
                 let tmp_labels = labels
                 tmp_labels.push(currentLap - 1)
                 setLabels(tmp_labels)
@@ -77,7 +79,19 @@ const LapChart = ({selectedCar}) => {
         <div class='flex flex-col w-full'>
             <Line 
                 options={options}
-                data={data}
+                data={{
+                  labels,
+                  datasets: [
+                    {
+                      fill: true,
+                      label: 'Laps',
+                      data: labels.map((el, index) => time[index]),
+                      borderColor: 'rgb(53, 162, 235)',
+                      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                    },
+                    
+                  ],
+                }}
             />
         </div>
         
