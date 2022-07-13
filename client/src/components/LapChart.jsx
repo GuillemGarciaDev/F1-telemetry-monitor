@@ -79,14 +79,6 @@ const LapChart = ({selectedCar}) => {
                 options={options}
                 data={data}
             />
-            <Line 
-                options={options}
-                data={data}
-            />
-             <Line 
-                options={options}
-                data={data}
-            />
         </div>
         
     )
