@@ -4,8 +4,9 @@ const { Server } = require('socket.io')
 const cors = require('cors')
 const http = require('http')
 const { PACKETS } = require('./constants/packets')
-const { parseCarStatusPacket, parseLapStatusPacket, parseParticipantsDataPacket, parseSessionDataPacket, parseCarTelemetryPacket } = require('./parsers/packets')
+const { parseCarStatusPacket, parseLapStatusPacket, parseParticipantsDataPacket, parseSessionDataPacket, parseCarTelemetryPacket, parseCarDamagePacket } = require('./parsers/packets')
 const { getTime } = require('./utils/log')
+const { unwatchFile } = require('fs')
 
 /* Init server configuration */
 const app = express()
@@ -34,6 +35,7 @@ const client = new F1TelemetryClient.F1TelemetryClient({address: '0.0.0.0'});
 /* Client info send functions */
 function sendPacket(type, packet) {
     let data = []
+    let send = true
     switch (type) {
         case PACKETS.carStatus:
             packet.allCarStatus.map((el) => data.push({
@@ -89,11 +91,22 @@ function sendPacket(type, packet) {
                 "engineRPM": el.m_engineRPM,
                 "drs": el.m_drs
             }))
+            break
+        case PACKETS.carDamage:
+            if (packet.carDamage != undefined) {
+                packet.carDamage.map((el) => data.push({
+                    "tyresWear": el.m_tyresWear
+                }))
+            } 
+            else send = false
+            break
         default:
             break
     }
-    io.emit(type, data)
-    console.log(`[ ${getTime()} ] 💬 Sending ${type} packet`)
+    if (send) {
+        io.emit(type, data)
+        console.log(`[ ${getTime()} ] 💬 Sending ${type} packet`)
+    }
 }
 
 /* F1 Websocket connections */
@@ -130,6 +143,13 @@ client.on(PACKETS.carTelemetry, (data) => {
     let packet = parseCarTelemetryPacket(data)
     //console.log(packet)
     sendPacket(PACKETS.carTelemetry, packet)
+})
+
+client.on(PACKETS.carDamage, (data) => {
+    if (DEBUG) console.log(data)
+    let packet = parseCarDamagePacket(data)
+    //console.log(packet)
+    sendPacket(PACKETS.carDamage, packet)
 })
 
 
