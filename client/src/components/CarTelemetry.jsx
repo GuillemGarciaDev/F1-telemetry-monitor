@@ -3,6 +3,7 @@ import io from 'socket.io-client'
 import { ERS_DEPLOY_MODE, ERS_DEPLOY_MODE_COLOR } from '../parsers/ersDeployMode'
 import { TYRES } from '../parsers/tyres'
 import LapChart from './LapChart'
+import TyreDamageChart from './TyreDamageChart'
 
 const socket = io.connect('http://localhost:5050')
 
@@ -29,6 +30,7 @@ const CarTelemetry = ({selectedCar}) => {
     const [ersDeployMode, setErsDeployMode] = useState(null)
     
     useEffect(() => {
+        
         socket.on('carTelemetry', (data) => {
             setSpeed(data[selectedCar].speed)
             setThrottle(data[selectedCar].throttle)
@@ -270,6 +272,8 @@ const CarTelemetry = ({selectedCar}) => {
             <div class='h-full flex flex-col w-1/3 p-2'>
                 <p class='my-2 text-lg'>Lap time</p>
                 <LapChart selectedCar={selectedCar}/>
+                <p class='my-2 text-lg'>Tyre damage</p>
+                <TyreDamageChart selectedCar={selectedCar}/>
             </div>
         </div>
     )

@@ -28,8 +28,15 @@ function parseCarTelemetryPacket(packet) {
     }
 }
 
+function parseCarDamagePacket(packet) {
+    return {
+        "carDamage": packet.m_carDamageData
+    }
+}
+
 exports.parseCarStatusPacket = parseCarStatusPacket
 exports.parseLapStatusPacket = parseLapStatusPacket
 exports.parseParticipantsDataPacket = parseParticipantsDataPacket
 exports.parseSessionDataPacket = parseSessionDataPacket
 exports.parseCarTelemetryPacket = parseCarTelemetryPacket
+exports.parseCarDamagePacket = parseCarDamagePacket
