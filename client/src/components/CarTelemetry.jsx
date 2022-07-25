@@ -275,10 +275,14 @@ const CarTelemetry = ({selectedCar}) => {
                 </div>
             </div>
             <div class='h-full flex flex-col w-1/3 p-2'>
-                <p class='my-2 text-lg'>Lap time</p>
-                <LapChart selectedCar={selectedCar}/>
-                <p class='my-2 text-lg'>Tyre damage</p>
-                <TyreDamageChart selectedCar={selectedCar}/>
+                <div class='h-1/2'>
+                    <p class='my-2 text-lg'>Lap time</p>
+                    <LapChart selectedCar={selectedCar}/>
+                </div>
+                <div class='h-1/2'>
+                    <p class='my-2 text-lg'>Tyre damage</p>
+                    <TyreDamageChart selectedCar={selectedCar}/>
+                </div>
             </div>
         </div>
     )
