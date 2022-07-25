@@ -95,7 +95,15 @@ function sendPacket(type, packet) {
         case PACKETS.carDamage:
             if (packet.carDamage != undefined) {
                 packet.carDamage.map((el) => data.push({
-                    "tyresWear": el.m_tyresWear
+                    "tyresWear": el.m_tyresWear,
+                    "brakesDamage": el.m_brakesDamage,
+                    "frontLeftWingDamage": el.m_frontLeftWingDamage,
+                    "frontRightWingDamage": el.m_frontRightWingDamage,
+                    "rearWingDamage": el.m_rearWingDamage,
+                    "floorDamage": el.m_floorDamage,
+                    "diffuserDamage": el.m_diffuserDamage,
+                    "gearBoxDamage": el.m_gearBoxDamage,
+                    "engineDamage": el.m_engineDamage
                 }))
             } 
             else send = false

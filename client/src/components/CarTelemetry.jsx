@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 import { ERS_DEPLOY_MODE, ERS_DEPLOY_MODE_COLOR } from '../parsers/ersDeployMode'
 import { TYRES } from '../parsers/tyres'
+import CarDamage from './CarDamage'
 import LapChart from './LapChart'
+import PositionChart from './PositionChart'
 import TyreDamageChart from './TyreDamageChart'
 
 const socket = io.connect('http://localhost:5050')
@@ -59,6 +61,8 @@ const CarTelemetry = ({selectedCar}) => {
     return (
         <div class='flex flex-row w-full h-full border-solid border-4 border-white rounded-md'>
             <div class='h-full flex flex-col w-1/3 p-2'>
+
+                <div class='h-1/2'>
                 <p class='text-lg my-2'>Driver status</p>
                 <div class='flex flex-row'>
                     <div class='flex flex-row w-1/2'>
@@ -158,122 +162,135 @@ const CarTelemetry = ({selectedCar}) => {
                 </div>
                 <br/>
                 </div>
+                <CarDamage selectedCar={selectedCar} />
+            </div>
             <div class='h-full flex flex-col w-1/3 p-2'>
-                <p class='my-2 text-lg'>Car status</p>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            Speed
-                        </p>
+                <div class='h-1/2'>
+                    <p class='my-2 text-lg'>Car status</p>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                Speed
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                {speed} KPH
+                            </p>
+                        </div>
                     </div>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            {speed} KPH
-                        </p>
-                    </div>
-                </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            Throttle
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2 items-center'>
-                    <div class="w-full bg-[#4A4A53] rounded-full h-2.5">
-                        <div class="bg-[#55FF52] h-2.5 rounded-full" style={{width: throttle*100 + '%'}}></div>
-                    </div>
-                    </div>
-                </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            Brake
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2 items-center'>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                Throttle
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2 items-center'>
                         <div class="w-full bg-[#4A4A53] rounded-full h-2.5">
-                            <div class="bg-[#E10600] h-2.5 rounded-full" style={{width: brake*100 + '%'}}></div>
+                            <div class="bg-[#55FF52] h-2.5 rounded-full" style={{width: throttle*100 + '%'}}></div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                Brake
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2 items-center'>
+                            <div class="w-full bg-[#4A4A53] rounded-full h-2.5">
+                                <div class="bg-[#E10600] h-2.5 rounded-full" style={{width: brake*100 + '%'}}></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                Gear
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                {gear}
+                            </p>
+                        </div>
+                    </div>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                Engine RPM
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                {engineRPM} rpm
+                            </p>
+                        </div>
+                    </div>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                DRS
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2'>
+                            <p class={drs == 0 ? 'text-[#E10600]' : 'text-[#55FF52]'}>
+                                {drs == 0 ? 'Off' : 'Active'}
+                            </p>
+                        </div>
+                    </div>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                Tyres Age Lap
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                {tyresAgeLaps}
+                            </p>
+                        </div>
+                    </div>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                Fuel Remaining Laps
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                {fuelRemainingLaps?.toFixed(2)}
+                            </p>
+                        </div>
+                    </div>
+                    <div class='flex flex-row'>
+                        <div class='flex flex-row w-1/2'>
+                            <p>
+                                ERS Deploy Mode
+                            </p>
+                        </div>
+                        <div class='flex flex-row w-1/2'>
+                            <p class={'text-[' + ERS_DEPLOY_MODE_COLOR[ersDeployMode] + ']'}>
+                                {ERS_DEPLOY_MODE[ersDeployMode]}
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            Gear
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            {gear}
-                        </p>
-                    </div>
-                </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            Engine RPM
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            {engineRPM} rpm
-                        </p>
-                    </div>
-                </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            DRS
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2'>
-                        <p class={drs == 0 ? 'text-[#E10600]' : 'text-[#55FF52]'}>
-                            {drs == 0 ? 'Off' : 'Active'}
-                        </p>
-                    </div>
-                </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            Tyres Age Lap
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            {tyresAgeLaps}
-                        </p>
-                    </div>
-                </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            Fuel Remaining Laps
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            {fuelRemainingLaps?.toFixed(2)}
-                        </p>
-                    </div>
-                </div>
-                <div class='flex flex-row'>
-                    <div class='flex flex-row w-1/2'>
-                        <p>
-                            ERS Deploy Mode
-                        </p>
-                    </div>
-                    <div class='flex flex-row w-1/2'>
-                        <p class={'text-[' + ERS_DEPLOY_MODE_COLOR[ersDeployMode] + ']'}>
-                            {ERS_DEPLOY_MODE[ersDeployMode]}
-                        </p>
-                    </div>
+                
+                <div class='h-1/2'>
+                    <p class='my-2 text-lg'>Position</p>
+                    <PositionChart selectedCar={selectedCar}/>
                 </div>
             </div>
             <div class='h-full flex flex-col w-1/3 p-2'>
-                <p class='my-2 text-lg'>Lap time</p>
-                <LapChart selectedCar={selectedCar}/>
-                <p class='my-2 text-lg'>Tyre damage</p>
-                <TyreDamageChart selectedCar={selectedCar}/>
+                <div class='h-1/2'>
+                    <p class='my-2 text-lg'>Lap time</p>
+                    <LapChart selectedCar={selectedCar}/>
+                </div>
+                <div class='h-1/2'>
+                    <p class='my-2 text-lg'>Tyre damage</p>
+                    <TyreDamageChart selectedCar={selectedCar}/>
+                </div>
             </div>
         </div>
     )
