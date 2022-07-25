@@ -66,7 +66,7 @@ const TyreDamageChart = ({selectedCar}) => {
                     responsive: true,
                         scales: {
                         yAxis: {
-                            min: allTyresDamage[allTyresDamage.length - 1]*0.95,
+                            min: 40,
                             max: 100
                         }
                     }
