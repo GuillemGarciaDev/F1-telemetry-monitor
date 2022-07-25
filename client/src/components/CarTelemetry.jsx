@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 import { ERS_DEPLOY_MODE, ERS_DEPLOY_MODE_COLOR } from '../parsers/ersDeployMode'
 import { TYRES } from '../parsers/tyres'
+import CarDamage from './CarDamage'
 import LapChart from './LapChart'
 import TyreDamageChart from './TyreDamageChart'
 
@@ -59,6 +60,8 @@ const CarTelemetry = ({selectedCar}) => {
     return (
         <div class='flex flex-row w-full h-full border-solid border-4 border-white rounded-md'>
             <div class='h-full flex flex-col w-1/3 p-2'>
+
+                <div class='h-1/2'>
                 <p class='text-lg my-2'>Driver status</p>
                 <div class='flex flex-row'>
                     <div class='flex flex-row w-1/2'>
@@ -158,6 +161,8 @@ const CarTelemetry = ({selectedCar}) => {
                 </div>
                 <br/>
                 </div>
+                <CarDamage selectedCar={selectedCar} />
+            </div>
             <div class='h-full flex flex-col w-1/3 p-2'>
                 <p class='my-2 text-lg'>Car status</p>
                 <div class='flex flex-row'>
